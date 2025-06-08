@@ -1,43 +1,35 @@
-export default function Home() {
-  return (
-    <div dir="rtl" style={{
-      backgroundColor: "#000",
-      minHeight: "100vh",
-      padding: "2rem",
-      color: "#fff",
-      fontFamily: "sans-serif"
-    }}>
-      <h1 style={{ textAlign: "center", fontSize: "2rem", fontWeight: "bold" }}>
-        مرحباً بك في <span style={{ color: "#fff" }}>STYLER</span>
-      </h1>
-      <h2 style={{ textAlign: "center", marginBottom: "2rem" }}>الأقسام:</h2>
+import Link from "next/link";
 
-      <div style={{
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        gap: "1.5rem"
-      }}>
-        {[
-          { name: "👔 قسم القمصان", image: "https://via.placeholder.com/200x150?text=Shirts", link: "/shirts" },
-          { name: "👕 قسم التيشيرتات", image: "https://via.placeholder.com/200x150?text=T-Shirts", link: "/t-shirts" },
-          { name: "👖 قسم السراويل", image: "https://via.placeholder.com/200x150?text=Pants", link: "/pants" },
-          { name: "🩲 قسم الملابس الداخلية", image: "https://via.placeholder.com/200x150?text=Underwear", link: "/underwear" }
-        ].map((item, index) => (
-          <a key={index} href={item.link} style={{
-            backgroundColor: "#fff",
-            color: "#000",
-            textDecoration: "none",
-            width: "45%",
-            maxWidth: "250px",
-            borderRadius: "1rem",
-            padding: "1rem"
-          }}>
-            <img src={item.image} alt={item.name} style={{ width: "100%", borderRadius: "0.5rem" }} />
-            <p style={{ marginTop: "1rem", fontWeight: "bold" }}>{item.name}</p>
-          </a>
+export default function Home() {
+  const categories = [
+    { name: "القمصان", image: "/shirt.jpg", href: "/shirts" },
+    { name: "التيشيرتات", image: "/tshirt.jpg", href: "/t-shirts" },
+    { name: "السراويل", image: "/pants.jpg", href: "/pants" },
+    { name: "الملابس الداخلية", image: "/underwear.jpg", href: "/underwear" },
+  ];
+
+  return (
+    <main className="min-h-screen bg-black p-6">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {categories.map((cat, i) => (
+          <Link
+            key={i}
+            href={cat.href}
+            className="bg-white rounded-2xl overflow-hidden shadow-md transform hover:scale-105 transition duration-300"
+          >
+            <div className="w-full h-48 sm:h-64">
+              <img
+                src={cat.image}
+                alt={cat.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="text-center py-4 text-lg font-bold text-black">
+              {cat.name}
+            </div>
+          </Link>
         ))}
       </div>
-    </div>
+    </main>
   );
 }
